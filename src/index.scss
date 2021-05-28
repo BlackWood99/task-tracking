@@ -1,0 +1,18 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ul, li, form, label, footer, header, nav {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  outline: none;
+}
+body { font-size: 16px; line-height: 1; }
+
+ol, ul { list-style: none; }
+
+input, button { border: none; outline: none; }
+button  { cursor: pointer; }
+
+img { border: 0; max-width: 100%; }
+
+a { text-decoration: none; color: #000; }
+a:hover { text-decoration: underline; }

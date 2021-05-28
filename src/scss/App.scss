@@ -1,0 +1,16 @@
+@import "./libs/variables";
+@import "./components/header.scss";
+@import "./components/search.scss";
+@import "./pages/applications.scss";
+@import "./components/modal.scss";
+
+.App {
+	min-height: 100vh;
+	width: 100%;
+	display: flex;
+}
+
+.main {
+	width: 100%;
+}
+
