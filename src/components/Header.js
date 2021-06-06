@@ -1,12 +1,12 @@
 import React from "react"
 import logo from "../assets/img/header/logo.png"
-//import { ReactComponent as Item1 } from "../assets/img/header/book.svg"
-import item1 from "../assets/img/header/book.svg"
-import item2 from "../assets/img/header/file.svg"
-import item3 from "../assets/img/header/people.svg"
-import item4 from "../assets/img/header/city.svg"
-import item5 from "../assets/img/header/analytics.svg"
-import item6 from "../assets/img/header/settings.svg"
+// import { ReactComponent as Item1 } from "../assets/img/header/book.svg"
+import item1 from "../assets/img/header/newBook.png"
+import item2 from "../assets/img/header/newFile.png"
+import item3 from "../assets/img/header/newPeople.png"
+import item4 from "../assets/img/header/newCity.png"
+import item5 from "../assets/img/header/newAnalytics.png"
+import item6 from "../assets/img/header/newSettings.png"
 import { NavLink } from "react-router-dom"
 
 const Header = () => {
@@ -25,7 +25,7 @@ const Header = () => {
 				>
 					<div className='nav_item__icon'>
 						<img src={item1} alt='header-icon' />
-						{/* <Item1 width="95" height="80" fill='#fff' /> */}
+						{/* <Item1 width="195" height="180" background="#fff" fill='#fff' /> */}
 					</div>
 					<div className='nav_item__caption'>
 						<span>База знаний</span>

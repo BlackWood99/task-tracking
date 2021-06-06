@@ -1,9 +1,11 @@
-html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ul, li, form, label, footer, header, nav {
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img, ul, li, form, input, select, label, footer, header, nav {
   margin: 0;
   padding: 0;
   border: 0;
+  font: inherit;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   outline: none;
+  box-sizing: border-box;
 }
 body { font-size: 16px; line-height: 1; }
 

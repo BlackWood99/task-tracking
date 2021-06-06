@@ -2,6 +2,7 @@ import { GET_PRIORITIES, GET_STATUSES, GET_TASKS, GET_USERS } from "./constans"
 
 const initialState = {
     tasks: [],
+    
     priorities: [],
     statuses: [],
     users: []

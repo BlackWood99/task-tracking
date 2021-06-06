@@ -3,7 +3,6 @@ import {
 	GET_TASKS,
 	GET_PRIORITIES,
 	GET_CURRENT_TASK,
-	IS_LOADING_MODAL,
 	IS_OPEN_CREATE_MODAL,
 	IS_OPEN_EDIT_MODAL,
     GET_STATUSES,
@@ -16,12 +15,59 @@ const instance = axios.create({
 	baseURL: "http://intravision-task.test01.intravision.ru",
 })
 
+// Actions ------------
+
 const getTasksAC = (tasks) => {
 	return {
 		type: GET_TASKS,
 		payload: tasks,
 	}
 }
+
+const getPrioritiesAC = (priorities) => {
+	return {
+		type: GET_PRIORITIES,
+		payload: priorities,
+	}
+}
+
+const getStatusesAC = (statuses) => {
+	return {
+		type: GET_STATUSES,
+		payload: statuses,
+	}
+}
+
+const getUsersAC = (users) => {
+	return {
+		type: GET_USERS,
+		payload: users,
+	}
+}
+
+export const onShowCreateModal = (isOpen) => {
+	return {
+		type: IS_OPEN_CREATE_MODAL,
+		payload: isOpen,
+	}
+}
+
+export const onShowEditModal = (isOpen) => {
+	return {
+		type: IS_OPEN_EDIT_MODAL,
+		payload: isOpen,
+	}
+}
+
+const getCurrTaskAC = (task) => {
+	return {
+		type: GET_CURRENT_TASK,
+		payload: task,
+	}
+}
+
+// Requests ------------
+
 export const getTasks = () => async (dispatch) => {
 	try {
 		const response = await instance.get(
@@ -33,12 +79,6 @@ export const getTasks = () => async (dispatch) => {
 	}
 }
 
-const getPrioritiesAC = (priorities) => {
-	return {
-		type: GET_PRIORITIES,
-		payload: priorities,
-	}
-}
 export const getPriorities = () => async (dispatch) => {
 	try {
 		const response = await instance.get(`/api/${tenantguid}/Priorities`)
@@ -49,12 +89,6 @@ export const getPriorities = () => async (dispatch) => {
 	}
 }
 
-const getStatusesAC = (statuses) => {
-	return {
-		type: GET_STATUSES,
-		payload: statuses,
-	}
-}
 export const getStatuses = () => async (dispatch) => {
 	try {
 		const response = await instance.get(`/api/${tenantguid}/Statuses`)
@@ -65,12 +99,6 @@ export const getStatuses = () => async (dispatch) => {
 	}
 }
 
-const getUsersAC = (users) => {
-	return {
-		type: GET_USERS,
-		payload: users,
-	}
-}
 export const getUsers = () => async (dispatch) => {
 	try {
 		const response = await instance.get(`/api/${tenantguid}/Users`)
@@ -81,43 +109,11 @@ export const getUsers = () => async (dispatch) => {
 	}
 }
 
-// MODAL ---------
-
-export const onShowCreateModal = (isOpen) => {
-	return {
-		type: IS_OPEN_CREATE_MODAL,
-		payload: isOpen,
-	}
-}
-export const onShowEditModal = (isOpen) => {
-	return {
-		type: IS_OPEN_EDIT_MODAL,
-		payload: isOpen,
-	}
-}
-export const onLoadingModal = (isLoading) => {
-	return {
-		type: IS_LOADING_MODAL,
-		payload: isLoading,
-	}
-}
-
-//
-
-const getCurrTaskAC = (task) => {
-	return {
-		type: GET_CURRENT_TASK,
-		payload: task,
-	}
-}
-
 export const getCurrTask = (id) => async (dispatch) => {
 	try {
-        dispatch(onLoadingModal(true))
 		const response = await instance.get(`/api/${tenantguid}/Tasks/${id}`)
 		if (response.status === 200) {
             dispatch(getCurrTaskAC(response.data))
-            dispatch(onLoadingModal(false))
         }
 	} catch (error) {
 		console.log("ERROR: " + error)
@@ -129,6 +125,7 @@ export const addTask = (task) => async (dispatch) => {
 		const response = await instance.post(`/api/${tenantguid}/Tasks`, task)
 		if (response.status === 200) {
             dispatch(getCurrTask(response.data))
+			dispatch(getTasks())
         }
 	} catch (error) {
 		console.log("ERROR: " + error)

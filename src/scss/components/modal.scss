@@ -1,17 +1,18 @@
 .modal {
 	//display: none;
 	height: 100%;
-	width: 69%;
+	width: 70%;
+	max-width: 1280px;
 	position: absolute;
 	right: 0;
 	top: 0;
 	z-index: 1000;
-    overflow:unset;
+	overflow: unset;
 	.modalWrapper {
 		//height: 100vh;
-        max-height: 100vh;
-        min-height: $modal_height;
-        height: 100%;
+		max-height: 100vh;
+		min-height: $modal_height;
+		height: 100%;
 		position: sticky;
 		top: 0;
 		right: 0;
@@ -86,7 +87,7 @@
 				margin-bottom: 100px;
 			}
 
-			h3 {
+			label {
 				font-size: 14px;
 				line-height: 24px;
 				color: #9f9ea7;
@@ -218,22 +219,18 @@
 				}
 			}
 			.right {
-				width: 180px;
-				padding: 25px 35px;
+				padding: 25px 15px;
 
 				&_field {
 					margin-bottom: 15px;
+					font-size: 14px;
+					font-weight: 300;
+					line-height: 24px;
 					h3 {
-						font-size: 14px;
-						line-height: 24px;
 						color: #a09fa8;
-						font-weight: 300;
 						font-family: "Ubuntu";
 					}
 					span {
-						font-size: 14px;
-						font-weight: 300;
-						line-height: 24px;
 						color: #030303;
 					}
 				}
@@ -254,12 +251,18 @@
 						line-height: 15px;
 						cursor: pointer;
 					}
+					.select-status {
+						width: 180px;
+					}
 				}
 				.performer {
 					span {
 						color: $primary;
 						font-weight: 300;
 						cursor: pointer;
+					}
+					.select-initiator {
+						width: 180px;
 					}
 				}
 				.term {

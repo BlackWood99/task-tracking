@@ -1,8 +1,7 @@
 import {
 	GET_CURRENT_TASK,
 	IS_OPEN_CREATE_MODAL,
-	IS_OPEN_EDIT_MODAL,
-	IS_LOADING_MODAL,
+	IS_OPEN_EDIT_MODAL
 } from "./constans"
 
 const initialState = {
@@ -20,8 +19,6 @@ const modalReducer = (state = initialState, action) => {
 			return { ...state, createModalIsOpen: action.payload }
 		case GET_CURRENT_TASK:
 			return { ...state, currentTask: action.payload }
-		case IS_LOADING_MODAL:
-			return { ...state, isLoading: action.payload }
 		default:
 			return state
 	}

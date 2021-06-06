@@ -13,6 +13,7 @@ const Applications = (props) => {
 
 	const onOpenEditModal = (taskId) => {
 		props.getCurrTask(taskId)
+		props.onShowCreateModal(false)
 		props.onShowEditModal(true)
 	}
 
@@ -63,11 +64,6 @@ const Applications = (props) => {
 					/>
 				))}
 
-				{/* <ApplicationItem />
-				<ApplicationItem />
-				<ApplicationItem />
-				<ApplicationItem />
-				<ApplicationItem /> */}
 			</div>
 		</div>
 	)

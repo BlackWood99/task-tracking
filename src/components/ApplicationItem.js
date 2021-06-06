@@ -1,7 +1,14 @@
 import React from "react"
 
+function numberWithSpaces(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+}
+
 const ApplicationItem = ({ task, onOpenEditModal, priorities }) => {
+
 	const priority = priorities.find((p) => p.id === task.priorityId)
+	
+	const taskId = numberWithSpaces(task.id)
 
 	return (
 		<button
@@ -13,7 +20,7 @@ const ApplicationItem = ({ task, onOpenEditModal, priorities }) => {
 				className='t-prioritet'
 			></div>
 			<div className='t-item t-id'>
-				<span>{task.id}</span>
+				<span>{taskId}</span>
 			</div>
 			<div className='t-item t-name'>
 				<p>{task.name}</p>

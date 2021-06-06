@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { onShowEditModal, updateTask } from "../redux/actions"
 import calendarImg from "../assets/img/calendar.png"
 import Comment from "./Comment"
+import Select from "react-select"
 
 const ModalEdit = ({
 	currTask,
@@ -12,6 +13,7 @@ const ModalEdit = ({
 	updateTask,
 }) => {
 
+	// Converting date for normal type
 	const date = new Date(currTask.resolutionDatePlan)
 	const options = {
 		year: "numeric",
@@ -20,10 +22,26 @@ const ModalEdit = ({
 	}
 	const resolutionDatePlan = date.toLocaleString("ru", options)
 
+	// Options for Select components
+	const selectOptions = statuses.map((s) => {
+		return { value: s.name, label: s.name }
+	})
+	const initiatorOptions = users.map((i) => {
+		return { value: i.name, label: i.name }
+	})
+
+	// Status block (declaration, change fn)
 	const [statusRgb, setStatusRgb] = useState(currTask.statusRgb)
 	const [status, setStatus] = useState(currTask.statusName)
 	const onChangeStatus = (event) => {
-		setStatus(event.target.value)
+		setStatus(event.value)
+		const thisStatus = statuses.find((s) => s.name === event.value)
+		const updatedTask = {
+			...currTask,
+			statusId: thisStatus.id,
+		}
+
+		updateTask(updatedTask)
 	}
 
 	useEffect(() => {
@@ -31,18 +49,24 @@ const ModalEdit = ({
 			const currRgb = statuses.find((s) => s.name === status)
 			setStatusRgb(currRgb.rgb)
 		}
-	}, [status])
+	}, [status, statuses])
 
 	const [isStatusEditMode, setIsStatusEditMode] = useState(false)
 	const toggleStatusEditMode = (isOpen) => {
 		setIsStatusEditMode(isOpen)
 	}
 
-	//////
-
+	// Initiator block (declaration, change fn)
 	const [initiator, setInitiator] = useState(currTask.executorName)
 	const onChangeInitiator = (event) => {
-		setInitiator(event.target.value)
+		setInitiator(event.value)
+		const thisInitiator = users.find((u) => u.name === event.value)
+		const updatedTask = {
+			...currTask,
+			executorId: thisInitiator.id
+		}
+
+		updateTask(updatedTask)
 	}
 
 	const [isInitiatorEditMode, setIsInitiatorEditMode] = useState(false)
@@ -50,33 +74,24 @@ const ModalEdit = ({
 		setIsInitiatorEditMode(isOpen)
 	}
 
-	////
-
+	// Comment block
 	const [commentVal, setCommentVal] = useState("")
-
 	const onChangeComment = (event) => {
 		setCommentVal(event.target.value)
 	}
 
-	////
-
+	// Save comment
 	const saveChanges = () => {
-		const thisStatus = statuses.find((s) => s.name === status)
-		const thisInitiator = users.find((u) => u.name === initiator)
-
 		const updatedTask = {
 			...currTask,
-			executorId: thisInitiator.id,
-			statusId: thisStatus.id,
-			comment: commentVal,
+			comment: commentVal
 		}
 
 		updateTask(updatedTask)
 		setCommentVal("")
 	}
 
-	// Update on change application
-
+	// Update on changing application
 	useEffect(() => {
 		setStatusRgb(currTask.statusRgb)
 		setStatus(currTask.statusName)
@@ -133,20 +148,26 @@ const ModalEdit = ({
 								style={{ backgroundColor: statusRgb }}
 								className='prioritet'
 							></div>
-							{isStatusEditMode && (
-								<select
+							{isStatusEditMode ? (
+								<Select
+									className='select-status'
 									value={status}
-									onChange={(event) => onChangeStatus(event)}
+									placeholder={status}
+									onChange={onChangeStatus}
 									onBlur={() => toggleStatusEditMode(false)}
-								>
-									{statuses.map((s) => (
-										<option key={s.id} value={s.name}>
-											{s.name}
-										</option>
-									))}
-								</select>
-							)}
-							{!isStatusEditMode && (
+									autoFocus={true}
+									closeMenuOnSelect={true}
+									isSearchable={false}
+									options={selectOptions}
+									styles={{
+										placeholder: (base) => ({
+											...base,
+											fontSize: "12px",
+											lineHeight: "12px",
+										}),
+									}}
+								/>
+							) : (
 								<span onClick={() => toggleStatusEditMode(true)}>
 									{status}
 								</span>
@@ -162,20 +183,26 @@ const ModalEdit = ({
 						</div>
 						<div className='right_field performer'>
 							<h3>Исполнитель</h3>
-							{isInitiatorEditMode && (
-								<select
+							{isInitiatorEditMode ? (
+								<Select
+									className='select-initiator'
 									value={initiator}
-									onChange={(event) => onChangeInitiator(event)}
+									placeholder={initiator}
+									onChange={onChangeInitiator}
 									onBlur={() => toggleInitiatorEditMode(false)}
-								>
-									{users.map((u) => (
-										<option key={u.id} value={u.name}>
-											{u.name}
-										</option>
-									))}
-								</select>
-							)}
-							{!isInitiatorEditMode && (
+									autoFocus={true}
+									closeMenuOnSelect={true}
+									isSearchable={false}
+									options={initiatorOptions}
+									styles={{
+										placeholder: (base) => ({
+											...base,
+											fontSize: "14px",
+											lineHeight: "14px"
+										}),
+									}}
+								/>
+							) : (
 								<span onClick={() => toggleInitiatorEditMode(true)}>
 									{initiator}
 								</span>
